@@ -41,8 +41,4 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> i
         super.deleteById(id);
     }
 
-    @Override
-    public List<UserDTO> getAllManagers() {
-        return null;
-    }
 }

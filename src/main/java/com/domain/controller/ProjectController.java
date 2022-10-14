@@ -32,20 +32,42 @@ public class ProjectController {
 
         model.addAttribute("project", new ProjectDTO());
         model.addAttribute("projects",projectService.findAll());
-        model.addAttribute("managers", getManagers());
+        model.addAttribute("managers", userService.findManagers());
 
         return "/project/create";
-    }
-
-    public List<UserDTO> getManagers(){
-     List<UserDTO> managers=userService.findAll().stream().filter(user ->user.getRole().getDescription().equals("Manager")).collect(Collectors.toList());
-     return managers;
     }
 
 
     @PostMapping("/create")
     public String insertProject(ProjectDTO project, Model model){
         projectService.save(project);
+        return "redirect:/project/create";
+    }
+
+
+    @GetMapping("/update/{projectCode}")
+    public String editUser(@PathVariable("projectCode") String projectCode,Model model){
+
+        model.addAttribute("project", projectService.findById(projectCode));
+        model.addAttribute("projects",projectService.findAll());
+        model.addAttribute("managers", userService.findManagers());
+
+
+        return "/project/update";
+    }
+
+    @PostMapping("/update")
+    public String updateProject(ProjectDTO project){
+
+        projectService.update(project);
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/delete/{projectCode}")
+    public String deleteUser(@PathVariable("projectCode") String projectCode){
+
+        projectService.deleteById(projectCode);
+
         return "redirect:/project/create";
     }
 
