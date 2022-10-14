@@ -1,6 +1,7 @@
 package com.domain.service.impl;
 
 import com.domain.dto.ProjectDTO;
+import com.domain.dto.UserDTO;
 import com.domain.enums.Status;
 import com.domain.service.ProjectService;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,10 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> i
     @Override
     public void deleteById(String id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public List<UserDTO> getAllManagers() {
+        return null;
     }
 }
