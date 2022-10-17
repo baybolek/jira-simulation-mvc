@@ -1,8 +1,5 @@
 package com.domain.service;
 
-import com.domain.dto.RoleDTO;
-import org.yaml.snakeyaml.events.Event;
-
 import java.util.List;
 
 public interface CrudService<T, ID> {

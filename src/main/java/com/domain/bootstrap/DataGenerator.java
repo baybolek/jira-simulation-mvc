@@ -2,11 +2,13 @@ package com.domain.bootstrap;
 
 import com.domain.dto.ProjectDTO;
 import com.domain.dto.RoleDTO;
+import com.domain.dto.TaskDTO;
 import com.domain.dto.UserDTO;
 import com.domain.enums.Gender;
 import com.domain.enums.Status;
 import com.domain.service.ProjectService;
 import com.domain.service.RoleService;
+import com.domain.service.TaskService;
 import com.domain.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,11 +22,13 @@ public class DataGenerator implements CommandLineRunner {
     RoleService roleService;
     UserService userService;
     ProjectService projectService;
+    TaskService taskService;
 
-    public DataGenerator(RoleService roleService, UserService userService, ProjectService projectService) {
+    public DataGenerator(RoleService roleService, UserService userService, ProjectService projectService, TaskService taskService) {
         this.roleService = roleService;
         this.userService = userService;
         this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -72,5 +76,15 @@ public class DataGenerator implements CommandLineRunner {
         projectService.save(project1);
         projectService.save(project2);
         projectService.save(project3);
+
+
+        TaskDTO task1 = new TaskDTO(project1,user8,"Controller","Request Mapping",Status.IN_PROGRESS,LocalDate.now().minusDays(4));
+        TaskDTO task2 = new TaskDTO(project3,user3,"Configuration","Database Connnection",Status.COMPLETE,LocalDate.now().minusDays(12));
+        TaskDTO task3 = new TaskDTO(project3,user6,"Mapping","One-To-Many",Status.IN_PROGRESS,LocalDate.now().minusDays(8));
+        TaskDTO task4 = new TaskDTO(project2,user7,"Dependency Injection","Autowired",Status.IN_PROGRESS,LocalDate.now().minusDays(20));
+        taskService.save(task1);
+        taskService.save(task2);
+        taskService.save(task3);
+        taskService.save(task4);
     }
 }

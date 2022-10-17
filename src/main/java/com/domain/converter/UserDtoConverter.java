@@ -1,7 +1,6 @@
 package com.domain.converter;
 
 
-import com.domain.dto.RoleDTO;
 import com.domain.dto.UserDTO;
 import com.domain.service.UserService;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;

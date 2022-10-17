@@ -2,16 +2,12 @@ package com.domain.controller;
 
 
 import com.domain.dto.ProjectDTO;
-import com.domain.dto.UserDTO;
 import com.domain.service.ProjectService;
 import com.domain.service.RoleService;
 import com.domain.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/project")
@@ -25,6 +21,12 @@ public class ProjectController {
         this.roleService = roleService;
         this.userService = userService;
         this.projectService = projectService;
+    }
+
+    @GetMapping("/status")
+    public String projectStatus(Model model){
+
+        return "/manager/project-status";
     }
 
     @GetMapping("/create")
@@ -46,7 +48,7 @@ public class ProjectController {
 
 
     @GetMapping("/update/{projectCode}")
-    public String editUser(@PathVariable("projectCode") String projectCode,Model model){
+    public String editProject(@PathVariable("projectCode") String projectCode,Model model){
 
         model.addAttribute("project", projectService.findById(projectCode));
         model.addAttribute("projects",projectService.findAll());
@@ -60,6 +62,7 @@ public class ProjectController {
     public String updateProject(ProjectDTO project){
 
         projectService.update(project);
+
         return "redirect:/project/create";
     }
 
@@ -67,6 +70,14 @@ public class ProjectController {
     public String deleteUser(@PathVariable("projectCode") String projectCode){
 
         projectService.deleteById(projectCode);
+
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/complete/{projectCode}")
+    public String completeProject(@PathVariable("projectCode") String projectCode){
+
+        projectService.complete(projectService.findById(projectCode));
 
         return "redirect:/project/create";
     }
