@@ -2,6 +2,7 @@ package com.domain.controller;
 
 
 import com.domain.dto.ProjectDTO;
+import com.domain.dto.UserDTO;
 import com.domain.service.ProjectService;
 import com.domain.service.RoleService;
 import com.domain.service.UserService;
@@ -9,24 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 
-    RoleService roleService;
     UserService userService;
     ProjectService projectService;
 
-    public ProjectController(RoleService roleService, UserService userService, ProjectService projectService) {
-        this.roleService = roleService;
+    public ProjectController(UserService userService, ProjectService projectService) {
         this.userService = userService;
         this.projectService = projectService;
-    }
-
-    @GetMapping("/status")
-    public String projectStatus(Model model){
-
-        return "/manager/project-status";
     }
 
     @GetMapping("/create")
@@ -81,6 +76,8 @@ public class ProjectController {
 
         return "redirect:/project/create";
     }
+
+
 
 
 }

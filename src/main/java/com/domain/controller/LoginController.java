@@ -9,7 +9,7 @@ public class LoginController {
     @RequestMapping(value = {"/login","/"})  // ====> //localhost:8080/  or //localhost:8080/login
     public String login(){
 
-        return "/login2";
+        return "/login";
     }
 
     @RequestMapping("/welcome")

@@ -3,12 +3,16 @@ package com.domain.controller;
 
 import com.domain.dto.ProjectDTO;
 import com.domain.dto.TaskDTO;
+import com.domain.enums.Status;
 import com.domain.service.ProjectService;
 import com.domain.service.TaskService;
 import com.domain.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/task")
@@ -89,5 +93,21 @@ public class TaskController {
     }
 
 
+    @GetMapping("/status-update/{taskId}")
+    public String updateTaskStatus(@PathVariable("taskId") Long taskId, Model model){
+
+        List<Status> statuses= Arrays.asList(Status.OPEN,Status.IN_PROGRESS,Status.COMPLETE);
+            model.addAttribute("task", taskService.findById(taskId));
+
+        model.addAttribute("tasks",taskService.findAll());
+        model.addAttribute("statuses", statuses);
+        return "/task/status-update";
+    }
+
+    @PostMapping("/status-update/{id}")
+    public String updateTaskStatus(TaskDTO task){
+        taskService.taskStatusUpdate(task);
+        return "redirect:/task/pending";
+    }
 
 }

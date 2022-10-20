@@ -1,6 +1,7 @@
 package com.domain.service.impl;
 
 import com.domain.dto.TaskDTO;
+import com.domain.dto.UserDTO;
 import com.domain.enums.Status;
 import com.domain.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,16 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implement
     @Override
     public List<TaskDTO> findArchivedTasks() {
         return super.findAll().stream().filter(task->task.getTaskStatus().getValue().equals("Completed")).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDTO> findTasksByManager(UserDTO manager) {
+        return findAll().stream().filter(task->task.getProject().getAssignedManager().equals(manager)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void taskStatusUpdate(TaskDTO task) {
+        findById(task.getId()).setTaskStatus(task.getTaskStatus());
+        update(task);
     }
 }
